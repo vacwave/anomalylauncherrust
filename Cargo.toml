@@ -1,0 +1,33 @@
+[package]
+name = "anomaly_launcher"
+version = "1.0.0"
+edition = "2021"
+license = "MIT"
+description = "Multithreaded launcher for S.T.A.L.K.E.R. Anomaly (Rust port of AnomalyLauncher v1.0.5)"
+build = "build.rs"
+
+[[bin]]
+name = "AnomalyLauncher"
+path = "src/main.rs"
+
+[features]
+# Writes AnomalyLauncher_trace.log with start-up and scan timings.
+trace = []
+
+[dependencies]
+png = "0.17"
+md-5 = "0.10"
+windows-sys = { version = "0.59", features = [
+    "Win32_Foundation",
+    "Win32_Graphics_Gdi",
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_System_LibraryLoader",
+] }
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
